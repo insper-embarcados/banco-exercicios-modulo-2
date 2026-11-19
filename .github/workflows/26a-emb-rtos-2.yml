@@ -1,0 +1,33 @@
+name: 26a-emb-rtos-2
+
+on:
+  push:
+    paths:
+      - '26a-emb-rtos-2/**'
+      - 'CMakeLists.txt'
+      - 'freertos/**'
+      - '.github/workflows/26a-emb-rtos-2.yml'
+  pull_request:
+    paths:
+      - '26a-emb-rtos-2/**'
+      - 'CMakeLists.txt'
+      - 'freertos/**'
+      - '.github/workflows/26a-emb-rtos-2.yml'
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: insper-embarcados/pico-build@v1
+      - uses: insper-embarcados/actions-firmware-rubric-check@v0
+        with:
+          c_file: 26a-emb-rtos-2/main/main.c
+          rubric_file: 26a-emb-rtos-2/rubric_firmware.yml
+      - uses: insper-embarcados/actions-embedded-check@v2
+        with:
+          c_file: 26a-emb-rtos-2/main/main.c
+          rtos: true
+      - uses: insper-embarcados/actions-cppcheck@v1
+        with:
+          c_file: 26a-emb-rtos-2/main/main.c
